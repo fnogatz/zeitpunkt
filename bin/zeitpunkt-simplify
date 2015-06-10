@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+var simplify = require('simplify-js')
+var split = require('binary-split')
+var geobuf = require('geobuf')
+var turf = {
+  linestring: require('turf-linestring')
+}
+
+program
+  .usage('[options]')
+  .option('-a, --array', 'Export as JSON Array instead of newline-separated datasets')
+  .option('-b, --geobuf', 'Export as Geobuf')
+  .option('-i, --indentation <spaces>', 'Set indentation level (default: 0)', parseInt)
+  .option('-t, --tolerance <float>', 'Set tolerance (default: 0.0001)', parseFloat)
+  .option('--high-quality', 'Use high-quality simplification, approx. 15 times slower')
+  .parse(process.argv)
+
+var objects = []
+program.indentation = program.indentation === undefined ? 0 : program.indentation
+program.tolerance = program.tolerance || 0.0001
+
+function print (obj) {
+  if (program.geobuf) {
+    var buf = geobuf.featureToGeobuf(obj)
+    process.stdout.write(buf.encode().toBuffer())
+    return
+  }
+
+  console.log(JSON.stringify(obj, null, Array(program.indentation + 1).join(' ')))
+}
+
+var splitter = split()
+splitter.on('data', function (data) {
+  var geojson = JSON.parse(data)
+
+  var points = []
+  geojson.geometry.coordinates.forEach(function (pos, i) {
+    points.push({
+      x: pos[0],
+      y: pos[1],
+      t: geojson.properties.time[i]
+    })
+  })
+
+  var simplified = simplify(points, program.tolerance, program.highQuality)
+
+  var coords = []
+  var times = []
+  simplified.forEach(function (point) {
+    coords.push([point.x, point.y])
+    times.push(point.t)
+  })
+
+  var linestring = turf.linestring(coords)
+  linestring.properties = geojson.properties
+  linestring.properties.time = times
+
+  if (program.array) {
+    objects.push(linestring)
+  } else {
+    print(linestring)
+  }
+})
+splitter.on('error', function (err) {
+  throw err
+})
+splitter.on('end', function () {
+  if (program.array) {
+    print(objects)
+  }
+})
+
+process.stdin.pipe(splitter)

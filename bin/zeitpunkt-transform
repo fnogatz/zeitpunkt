@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+var split = require('binary-split')
+var geobuf = require('geobuf')
+
+program
+  .usage('[options]')
+  .option('-a, --array', 'Export as JSON Array instead of newline-separated datasets')
+  .option('-b, --geobuf', 'Export as Geobuf')
+  .option('-i, --indentation <spaces>', 'Set indentation level (default: 0)', parseInt)
+  .parse(process.argv)
+
+var objects = []
+program.indentation = program.indentation === undefined ? 0 : program.indentation
+
+function print (obj) {
+  if (program.geobuf) {
+    var buf = geobuf.featureToGeobuf(obj)
+    process.stdout.write(buf.encode().toBuffer())
+    return
+  }
+
+  console.log(JSON.stringify(obj, null, Array(program.indentation + 1).join(' ')))
+}
+
+var splitter = split()
+splitter.on('data', function (data) {
+  var geojson = JSON.parse(data)
+
+  if (program.array) {
+    objects.push(geojson)
+  } else {
+    print(geojson)
+  }
+})
+splitter.on('error', function (err) {
+  throw err
+})
+splitter.on('end', function () {
+  if (program.array) {
+    print(objects)
+  }
+})
+
+process.stdin.pipe(splitter)

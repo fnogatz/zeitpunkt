@@ -1,0 +1,34 @@
+{
+  "name": "zeitpunkt",
+  "version": "1.0.0-alpha1",
+  "description": "Tools to work with GeoJSON linestrings with time components",
+  "bin": "./bin/zeitpunkt",
+  "preferGlobal": true,
+  "scripts": {
+    "test": "npm run standard",
+    "standard": "standard && standard ./bin/*"
+  },
+  "keywords": [
+    "GeoJSON"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fnogatz/zeitpunkt"
+  },
+  "author": "Falco Nogatz <fnogatz@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^4.0.1",
+    "tap": "^0.5.0"
+  },
+  "dependencies": {
+    "binary-split": "^0.1.2",
+    "char-spinner": "^1.0.1",
+    "commander": "^2.8.1",
+    "concat-stream": "^1.4.10",
+    "csv": "^0.4.4",
+    "geobuf": "^0.2.4",
+    "simplify-js": "^1.2.1",
+    "turf-linestring": "^1.0.2"
+  }
+}

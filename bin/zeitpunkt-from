@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+
+program
+  .version(require('../package.json').version)
+  .command('csv', 'Create GeoJSON from CSV')
+  .parse(process.argv)
