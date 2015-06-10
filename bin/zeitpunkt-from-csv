@@ -20,7 +20,7 @@ program
   .option('--ignore <rows>', 'Ignore first rows (default: 0)')
   .option('--lat <bounds>', 'Set bounds for latitude (default: "-90,90")')
   .option('--lon <bounds>', 'Set bounds for longitude (default: "-180,180")')
-  .option('--eps <number>', 'Epsilon (default: 0.001)')
+  .option('--eps <number>', 'Minimum distance between two points (default: 0.001)')
   .option('-a, --array', 'Export as JSON Array instead of newline-separated datasets')
   .option('-b, --geobuf', 'Export as Geobuf')
   .option('-i, --indentation <spaces>', 'Set indentation level (default: 0)', parseInt)
