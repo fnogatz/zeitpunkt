@@ -4,7 +4,12 @@ var program = require('commander')
 
 program
   .version(require('../package.json').version)
-  .command('transform', 'Transform a GeoJSON stream')
-  .command('simplify', 'Simplify GeoJSON')
-  .command('from', 'Create GeoJSON from given input')
+  .command('csv', 'Create GeoJSON from given input')
+
+program
+  .option('-t', 'Some t')
+
+program
   .parse(process.argv)
+
+console.log('FALCO')

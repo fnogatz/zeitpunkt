@@ -1,6 +1,6 @@
 # ZeitPunkt [ˈʦaɪ̯tˌpʊŋkt]
 
-Tools to work with GeoJSON linestrings with given time components.
+Tools to work with GeoJSON LineStrings with given time components.
 
 ## GeoJSON Format
 
@@ -13,13 +13,17 @@ A minimal GeoJSON instance looks like this:
   "type": "Feature",
   "geometry": {
     "type": "LineString",  // or: "MultiPoint"
-    "coordinates": [
-      // array of [lng,lat] coordinates
+    "coordinates": [       // array of [lng,lat] coordinates
+      [ 10.0304153141,      48.4343540454     ],
+      [ 10.030424406259081, 48.43435113062047 ],
+      ...
     ]
   },
   "properties": {
-    "time": [
-      // array of UNIX timestamps
+    "time": [              // array of UNIX timestamps
+      1433907300000,
+      1433907300088,
+      ...
     ]
   }
 }
@@ -28,12 +32,44 @@ A minimal GeoJSON instance looks like this:
 ## Installation
 
 ```shell
+npm install zeitpunkt
+```
+
+The library provides some useful command line wrappers to pipe in GeoJSON and transform it. You can easily use the `zeitpunkt` executable after installing it as global module:
+
+```shell
 npm install -g zeitpunkt
 ```
 
 ## Usage
 
-zeitpunkt provides several command line tools to work with GeoJSON linestrings with time components. In general it consumes GeoJSON data from `stdin` and prints the result to `stdout`. Use the `--help` flag on each command to get a list of all possible options.
+```javascript
+
+```
+
+## Command Line
+
+
+
+
+
+
+
+
+zeitpunkt provides a command line tool to work with GeoJSON linestrings with time components. In general it consumes GeoJSON data from `stdin` and prints the result to `stdout`. Most commands support the following options:
+
+```
+Standard Options:
+
+  -h, --help                  output usage information
+  -a, --array                 Export as JSON Array instead of newline-separated datasets
+  -i, --indentation <spaces>  Set indentation level (default: 0)
+  -b, --geobuf                Import and Export as Geobuf
+  --from-geobuf               Import from Geobuf
+  --to-geobuf                 Export as Geobuf
+```
+
+Use the `--help` flag on each command to get a list of all additional options.
 
 ### Transform (No-op by default)
 
