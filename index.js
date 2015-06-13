@@ -1,7 +1,6 @@
-module.exports = zeitpunkt
-
-var split = require('binary-split')
-
-function zeitpunkt(options) {
-
+module.exports = {
+  simplify: require('./lib/simplify'),
+  clean: require('./lib/clean'),
+  split: require('./lib/split'),
+  fromCSV: require('./lib/from-csv')
 }
