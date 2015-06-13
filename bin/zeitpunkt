@@ -20,6 +20,7 @@ program
   .option('--eps <number>', 'Minimum distance between two points (default: 0.001)')
   .option('--simplify <tolerance>', 'Simplify by given tolerance (default: 0.0001)', parseFloat)
   .option('--simplify-high-quality', 'Use high-quality simplification, approx. 15 times slower')
+  .option('--logical-to-unix-time <zerovalue>', 'Convert logical time to UNIX time', parseFloat)
   .option('-i, --indentation <spaces>', 'Set JSON indentation level (default: 0)', parseInt)
   .option('--from-csv', 'Import from CSV')
   .option('--csv-delimiter <char>', 'Column delimiter (default: ",")')
@@ -68,6 +69,23 @@ if (program.lat || program.lon || program.eps) {
 
   stream = stream.pipe(map(function (geojson, callback) {
     callback(null, zeitpunkt.clean(options, geojson))
+  }))
+}
+
+// transform?
+if (program.hasOwnProperty('logicalToUnixTime')) {
+  options = {
+    time: function (time) {
+      return parseInt(time * 1000 + (program.logicalToUnixTime || 0))
+    }
+  }
+
+  stream = stream.pipe(map(function (geojson, callback) {
+    callback(null, zeitpunkt.transform({
+      time: function (time) {
+        return time * 1000
+      }
+    }, geojson))
   }))
 }
 

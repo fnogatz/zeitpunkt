@@ -136,3 +136,26 @@ test('zeitpunkt.split()', function (t) {
       t.end()
     }))
 })
+
+test('zeitpunkt.transform()', function (t) {
+  t.test('Transform time', function (t) {
+    fs.createReadStream(__dirname + '/data/logical-time.csv')
+      .pipe(zeitpunkt.fromCSV())
+      .pipe(map(function (geojson, callback) {
+        callback(null, zeitpunkt.transform({
+          time: function (time) {
+            return time * 1000
+          }
+        }, geojson))
+      }))
+      .pipe(concat(function (geojsons) {
+        t.equal(geojsons[0].properties.time[0], 1000)
+        t.equal(geojsons[0].properties.time[1], 1100)
+        t.equal(geojsons[0].properties.time[2], 3141.5)
+
+        t.end()
+      }))
+  })
+
+  t.end()
+})
