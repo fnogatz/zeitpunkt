@@ -76,7 +76,7 @@ if (program.lat || program.lon || program.eps) {
 if (program.hasOwnProperty('logicalToUnixTime')) {
   options = {
     time: function (time) {
-      return parseInt(time * 1000 + (program.logicalToUnixTime || 0))
+      return parseInt(time * 1000 + (program.logicalToUnixTime || 0), 10)
     }
   }
 
