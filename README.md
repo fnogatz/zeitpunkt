@@ -74,6 +74,7 @@ A short list of tools that produce or consume GeoJSON linestrings with time comp
 * [transportation](https://github.com/fnogatz/transportation): Generates vehicles' positions as GeoJSON linestrings by GTFS public transportation data
 * [timetraveller](https://github.com/fnogatz/timetraveller): Interactive display of GeoJSON linestrings with time components
 * [timetraveller-mongodb](https://github.com/fnogatz/timetraveller-mongodb): Store GeoJSON linestrings with time components in MongoDB
+* [csv2geojson](https://github.com/mapbox/csv2geojson): Convert CSV files to GeoJSON files
 * [ObsJSON](https://code.google.com/p/xenia/wiki/ObsJSON): GeoJSON based observations/data-centric minimal schema
 
 Please open an issue to add more compatible tools.
