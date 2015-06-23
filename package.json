@@ -1,6 +1,6 @@
 {
   "name": "zeitpunkt",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Tools to work with GeoJSON linestrings with time components",
   "main": "./index",
   "bin": "./bin/zeitpunkt",
@@ -11,6 +11,7 @@
   },
   "keywords": [
     "GeoJSON",
+    "geojson",
     "linestring",
     "simplify",
     "timetraveller"
