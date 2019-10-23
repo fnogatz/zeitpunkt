@@ -1,4 +1,5 @@
 var fs = require('fs')
+var path = require('path')
 var test = require('tap').test
 var concat = require('concat-stream')
 var map = require('map-stream')
@@ -8,7 +9,7 @@ var zeitpunkt = require('../index')
 
 test('zeitpunkt.fromCSV()', function (t) {
   t.test('Import', function (t) {
-    fs.createReadStream(__dirname + '/data/simple.csv')
+    fs.createReadStream(path.join(__dirname, 'data/simple.csv'))
       .pipe(zeitpunkt.fromCSV())
       .pipe(concat(function (geojsons) {
         t.equal(geojsons.length, 1, 'Single dataset')
@@ -20,7 +21,7 @@ test('zeitpunkt.fromCSV()', function (t) {
   })
 
   t.test('Multiple IDs', function (t) {
-    fs.createReadStream(__dirname + '/data/multiple-ids.csv')
+    fs.createReadStream(path.join(__dirname, 'data/multiple-ids.csv'))
       .pipe(zeitpunkt.fromCSV())
       .pipe(concat(function (geojsons) {
         t.equal(geojsons.length, 2, 'Two datasets')
@@ -32,13 +33,13 @@ test('zeitpunkt.fromCSV()', function (t) {
   })
 
   t.test('UTM projection', function (t) {
-    fs.createReadStream(__dirname + '/data/utm.csv')
+    fs.createReadStream(path.join(__dirname, 'data/utm.csv'))
       .pipe(zeitpunkt.fromCSV({
         projUtm: '32N'
       }))
       .pipe(concat(function (geojsons) {
         t.deepEqual(geojsons[0].geometry.coordinates,
-          [ [ 11.031314, 49.573937 ] ],
+          [[11.031314, 49.573937]],
           'Coordinates projected')
 
         t.end()
@@ -46,7 +47,7 @@ test('zeitpunkt.fromCSV()', function (t) {
   })
 
   t.test('UNIX timestamp', function (t) {
-    fs.createReadStream(__dirname + '/data/timestamp.csv')
+    fs.createReadStream(path.join(__dirname, 'data/timestamp.csv'))
       .pipe(zeitpunkt.fromCSV())
       .pipe(concat(function (geojsons) {
         t.equal(geojsons[0].properties.time[0], 1201955608000)
@@ -56,7 +57,7 @@ test('zeitpunkt.fromCSV()', function (t) {
   })
 
   t.test('Logical time', function (t) {
-    fs.createReadStream(__dirname + '/data/logical-time.csv')
+    fs.createReadStream(path.join(__dirname, 'data/logical-time.csv'))
       .pipe(zeitpunkt.fromCSV())
       .pipe(concat(function (geojsons) {
         t.equal(geojsons[0].properties.time[0], 1)
@@ -68,7 +69,7 @@ test('zeitpunkt.fromCSV()', function (t) {
   })
 
   t.test('Erlangen sample data', function (t) {
-    fs.createReadStream(__dirname + '/data/erlangen.csv')
+    fs.createReadStream(path.join(__dirname, 'data/erlangen.csv'))
       .pipe(zeitpunkt.fromCSV({
         delimiter: ';',
         columns: 'id,x,y,time'
@@ -85,7 +86,7 @@ test('zeitpunkt.fromCSV()', function (t) {
 })
 
 test('zeitpunkt.simplify()', function (t) {
-  fs.createReadStream(__dirname + '/data/simplify.csv')
+  fs.createReadStream(path.join(__dirname, 'data/simplify.csv'))
     .pipe(zeitpunkt.fromCSV())
     .pipe(map(function (geojson, callback) {
       callback(null, zeitpunkt.simplify({
@@ -101,7 +102,7 @@ test('zeitpunkt.simplify()', function (t) {
 })
 
 test('zeitpunkt.clean()', function (t) {
-  fs.createReadStream(__dirname + '/data/logical-time.csv')
+  fs.createReadStream(path.join(__dirname, 'data/logical-time.csv'))
     .pipe(zeitpunkt.fromCSV())
     .pipe(map(function (geojson, callback) {
       callback(null, zeitpunkt.clean({
@@ -117,7 +118,7 @@ test('zeitpunkt.clean()', function (t) {
 })
 
 test('zeitpunkt.split()', function (t) {
-  fs.createReadStream(__dirname + '/data/simplify.csv')
+  fs.createReadStream(path.join(__dirname, 'data/simplify.csv'))
     .pipe(zeitpunkt.fromCSV())
     .pipe(through(function write (geojson) {
       var self = this
@@ -139,7 +140,7 @@ test('zeitpunkt.split()', function (t) {
 
 test('zeitpunkt.transform()', function (t) {
   t.test('Transform time', function (t) {
-    fs.createReadStream(__dirname + '/data/logical-time.csv')
+    fs.createReadStream(path.join(__dirname, 'data/logical-time.csv'))
       .pipe(zeitpunkt.fromCSV())
       .pipe(map(function (geojson, callback) {
         callback(null, zeitpunkt.transform({
