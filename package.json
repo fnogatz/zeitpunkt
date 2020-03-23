@@ -34,7 +34,7 @@
     "csv-parse": "^4.6.5",
     "geobuf": "^3.0.1",
     "map-stream": "0.0.5",
-    "simplify-js": "^1.2.1",
+    "simplify-js": "^1.2.4",
     "stream-combiner": "^0.2.2",
     "through": "^2.3.7",
     "turf-linestring": "^1.0.2",
