@@ -32,7 +32,7 @@
     "char-spinner": "^1.0.1",
     "commander": "^2.8.1",
     "csv-parse": "^4.8.8",
-    "geobuf": "^3.0.1",
+    "geobuf": "^3.0.2",
     "map-stream": "0.1.0",
     "simplify-js": "^1.2.4",
     "stream-combiner": "^0.2.2",
