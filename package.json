@@ -31,7 +31,7 @@
     "binary-split": "^0.1.2",
     "char-spinner": "^1.0.1",
     "commander": "^2.8.1",
-    "csv-parse": "^4.12.0",
+    "csv-parse": "^4.13.1",
     "geobuf": "^3.0.2",
     "map-stream": "0.1.0",
     "simplify-js": "^1.2.4",
