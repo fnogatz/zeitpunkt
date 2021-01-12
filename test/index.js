@@ -1,11 +1,11 @@
-var fs = require('fs')
-var path = require('path')
-var test = require('tap').test
-var concat = require('concat-stream')
-var map = require('map-stream')
-var through = require('through')
+const fs = require('fs')
+const path = require('path')
+const test = require('tap').test
+const concat = require('concat-stream')
+const map = require('map-stream')
+const through = require('through')
 
-var zeitpunkt = require('../index')
+const zeitpunkt = require('../index')
 
 test('zeitpunkt.fromCSV()', function (t) {
   t.test('Import', function (t) {
@@ -121,7 +121,7 @@ test('zeitpunkt.split()', function (t) {
   fs.createReadStream(path.join(__dirname, 'data/simplify.csv'))
     .pipe(zeitpunkt.fromCSV())
     .pipe(through(function write (geojson) {
-      var self = this
+      const self = this
       zeitpunkt.split({
         points: 10
       }, geojson).forEach(function (chunk) {

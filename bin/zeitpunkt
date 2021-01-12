@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-var program = require('commander')
-var geobuf = require('geobuf')
-var map = require('map-stream')
-var through = require('through')
-var spinner = require('char-spinner')
+const program = require('commander')
+const geobuf = require('geobuf')
+const map = require('map-stream')
+const through = require('through')
+const spinner = require('char-spinner')
 
 spinner()
 
-var zeitpunkt = require('../index')
+const zeitpunkt = require('../index')
 
 program
   .version(require('../package.json').version)
@@ -31,13 +31,13 @@ program
   .option('-a, --to-json-array', 'Export as JSON Array instead of newline-separated datasets')
   .parse(process.argv)
 
-var options
+let options
 
 program.indentation = program.indentation || 0
 
 function print (obj) {
   if (program.toGeobuf) {
-    var buf = geobuf.featureToGeobuf(obj)
+    const buf = geobuf.featureToGeobuf(obj)
     process.stdout.write(buf.encode().toBuffer())
     return
   }
@@ -45,7 +45,7 @@ function print (obj) {
   console.log(JSON.stringify(obj, null, Array(program.indentation + 1).join(' ')))
 }
 
-var stream = process.stdin
+let stream = process.stdin
 
 // from CSV?
 if (program.fromCsv) {
@@ -108,7 +108,7 @@ if (program.splitBy) {
   }
 
   stream = stream.pipe(through(function write (geojson) {
-    var self = this
+    const self = this
     zeitpunkt.split(options, geojson).forEach(function (chunk) {
       self.queue(chunk)
     })
@@ -119,7 +119,7 @@ if (program.splitBy) {
 
 // as Array?
 if (program.toJsonArray) {
-  var arr = []
+  const arr = []
   stream = stream.pipe(through(function write (geojson) {
     arr.push(geojson)
   }, function end () {
