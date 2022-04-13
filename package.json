@@ -27,7 +27,7 @@
   "devDependencies": {
     "concat-stream": "^1.4.10",
     "standard": "^16.0.3",
-    "tap": "^14.8.2"
+    "tap": "^16.0.1"
   },
   "dependencies": {
     "binary-split": "^0.1.2",
@@ -41,5 +41,8 @@
     "through": "^2.3.7",
     "turf-linestring": "^1.0.2",
     "utmgeoconv": "0.0.3"
+  },
+  "tap": {
+    "check-coverage": false
   }
 }
