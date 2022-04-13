@@ -38,7 +38,7 @@ test('zeitpunkt.fromCSV()', function (t) {
         projUtm: '32N'
       }))
       .pipe(concat(function (geojsons) {
-        t.deepEqual(geojsons[0].geometry.coordinates,
+        t.same(geojsons[0].geometry.coordinates,
           [[11.031314, 49.573937]],
           'Coordinates projected')
 
