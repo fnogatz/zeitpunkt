@@ -25,12 +25,12 @@
   "author": "Falco Nogatz <fnogatz@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "concat-stream": "^1.4.10",
+    "concat-stream": "^2.0.0",
     "standard": "^16.0.3",
     "tap": "^16.0.1"
   },
   "dependencies": {
-    "binary-split": "^0.1.2",
+    "binary-split": "^1.0.5",
     "char-spinner": "^1.0.1",
     "commander": "^2.8.1",
     "csv-parse": "^5.0.4",
